@@ -1,0 +1,7 @@
+cedente,sacado,nf,valor,vencimento,status
+Alfa Comercio Ltda,Mercado Norte,1001,70000.00,2026-08-10,ABERTO
+Beta Ltda,Mercado Sul,1002,20000.00,2026-09-01,ABERTO
+Gama Sa,Mercado Sul,1003,15000.00,2026-07-01,VENCIDO
+Delta Ltda,Mercado Leste,1004,5000.00,2026-08-20,LIQUIDADO
+Epsilon Ltda,Mercado Oeste,1005,8000.00,2026-08-25,ABERTO
+Zeta Ltda,Mercado Norte,,3000.00,2026-08-15,ABERTO
