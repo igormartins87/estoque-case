@@ -1,43 +1,62 @@
 "use client";
 
 import { useState } from "react";
+import type { ErroLinha } from "@/lib/estoque-types";
 
-type ImportarCsvProps = {
-  aoImportarComSucesso: () => void;
+export type ResultadoImportacaoUI = {
+  aceito: boolean;
+  erros: ErroLinha[];
+  mensagem: string;
 };
 
-export default function ImportarCsv({ aoImportarComSucesso }: ImportarCsvProps) {
+type ImportarCsvProps = {
+  aoImportar: (resultado: ResultadoImportacaoUI) => void;
+};
+
+export default function ImportarCsv({ aoImportar }: ImportarCsvProps) {
   const [arquivo, setArquivo] = useState<File | null>(null);
   const [enviando, setEnviando] = useState(false);
-  const [mensagem, setMensagem] = useState<string | null>(null);
 
   function handleSelecionarArquivo(evento: React.ChangeEvent<HTMLInputElement>) {
-    const arquivoSelecionado = evento.target.files?.[0] ?? null;
-    setArquivo(arquivoSelecionado);
-    setMensagem(null);
+    setArquivo(evento.target.files?.[0] ?? null);
   }
 
   async function handleImportar() {
     if (!arquivo) return;
 
     setEnviando(true);
-    setMensagem(null);
 
     const formData = new FormData();
     formData.append("arquivo", arquivo);
 
-    const resposta = await fetch("/api/estoque/import", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const resposta = await fetch("/api/estoque/import", {
+        method: "POST",
+        body: formData,
+      });
 
-    const dados = await resposta.json();
+      const dados = await resposta.json();
 
-    if (!resposta.ok) {
-      setMensagem(`Erro: ${dados.mensagem ?? "arquivo rejeitado."}`);
-    } else {
-      setMensagem(`Importação concluída: ${dados.importados} linha(s) importada(s).`);
-      aoImportarComSucesso();
+      if (resposta.ok) {
+        aoImportar({
+          aceito: true,
+          erros: dados.erros ?? [],
+          mensagem: `Importação concluída: ${dados.importados} linha(s) importada(s), ${dados.rejeitados} rejeitada(s).`,
+        });
+      } else {
+        aoImportar({
+          aceito: false,
+          erros: dados.erros ?? [],
+          mensagem: dados.mensagem ?? dados.erro ?? "Arquivo rejeitado.",
+        });
+      }
+    } catch (e) {
+      console.error("Falha na importação:", e);
+      aoImportar({
+        aceito: false,
+        erros: [],
+        mensagem: "Não foi possível comunicar com o servidor.",
+      });
     }
 
     setEnviando(false);
@@ -63,8 +82,6 @@ export default function ImportarCsv({ aoImportarComSucesso }: ImportarCsvProps) 
           {enviando ? "Importando..." : "Importar"}
         </button>
       </div>
-
-      {mensagem && <p className="text-sm text-gray-700">{mensagem}</p>}
     </div>
   );
 }
