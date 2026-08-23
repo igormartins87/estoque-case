@@ -1,6 +1,6 @@
 cedente,sacado,nf,valor,vencimento,status
-Alfa Comercio Ltda,Mercado Norte,1001,70000.00,2026-08-10,ABERTO
-Alfa Comercio Ltda,Mercado Norte,1001,50000.00,2026-08-15,ABERTO
-Beta Ltda,Mercado Sul,1002,-500.00,2026-09-01,ABERTO
-Gama Sa,Mercado Leste,1003,15000.00,15-07-2026,VENCIDO
-Delta Ltda,Mercado Oeste,1004,8000.00,2026-08-20,PENDENTE
+Ok Um Ltda,Sacado Um SA,1,1000.00,2026-09-10,ABERTO
+Ok Dois Ltda,Sacado Dois SA,2,2000.00,2026-09-10,ABERTO
+Ruim Status Ltda,Sacado Tres SA,3,3000.00,2026-09-10,PENDENTE
+Ruim Valor Ltda,Sacado Quatro SA,4,-10.00,2026-09-10,ABERTO
+Ruim Data Ltda,Sacado Cinco SA,5,5000.00,2026-13-40,ABERTO
