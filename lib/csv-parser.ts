@@ -11,9 +11,10 @@ const COLUNAS_ESPERADAS = [
 ] as const;
 
 // Cada linha de dados vem acompanhada do número original no arquivo
-// Isso é essencial para reportar erros de forma clara pro usuário
+// A numeração começa em 1 para a primeira linha de dados (após o cabeçalho)
+// Exemplo: Linha 1 = primeira linha após cabeçalho, que é a linha 2 do arquivo CSV
 export type LinhaCsvComNumero = {
-  numero: number; // número da linha no arquivo (cabeçalho = linha 1)
+  numero: number;  // número da linha no CSV (1 = primeira linha de dados)
   dados: LinhaCsvBruta;
 };
 
@@ -53,8 +54,8 @@ export function parseCsv(conteudo: string): ResultadoParseCsv {
     const colunas = linhaTexto.split(",");
 
     linhas.push({
-      // indice começa em 1 (linha 0 é cabeçalho), então a linha real no
-      // arquivo é indice + 1 (contando a partir de 1, como um humano contaria)
+      // A primeira linha de dados (índice 1 do array) é a "linha 1" para o
+      // usuário, conforme o enunciado: 1 = primeira linha após o cabeçalho.
       numero: indice,
       dados: {
         cedente: (colunas[0] ?? "").trim(),
