@@ -27,13 +27,14 @@ npm test
 
 ## Arquivos de teste
 
-Estão em `arquivos-teste/`:
+Estão em `arquivos-teste/` — são os 3 arquivos oficiais anexados ao enunciado
+do case, usados como gabarito de correção.
 
 | Arquivo | Comportamento esperado |
 |---|---|
-| `estoque-ok.csv` | Importa tudo. Sem erros. |
-| `estoque-parcial.csv` | Importa 5, rejeita 1 (linha 6, NF vazia). Snapshot é gravado. |
-| `estoque-rejeitado.csv` | Taxa de erro 80% > 20%. HTTP 400, snapshot **não** é gravado. |
+| `estoque-ok.csv` | Importa as 6 linhas. Sem erros. |
+| `estoque-parcial.csv` | Importa 8, rejeita 2 (linha 9 — NF duplicada; linha 10 — valor inválido). Taxa de erro de exatos 20%, dentro do limite: snapshot é gravado. |
+| `estoque-rejeitado.csv` | 3 erros em 5 linhas (60%). Acima do limite de 20%. HTTP 400, snapshot **não** é gravado. |
 
 **Sequência recomendada:** importe os três nessa ordem. No terceiro, a tabela
 deve continuar exibindo o estoque do segundo — é a prova da Regra 7.
@@ -44,24 +45,30 @@ deve continuar exibindo o estoque do segundo — é a prova da Regra 7.
 
 | Indicador | Valor |
 |---|---|
-| Qtd. estoque ativo | 3 |
-| Soma estoque ativo | R$ 105.000,00 |
-| % vencido | 80,95% |
-| PDD total | R$ 50.000,00 |
-| Maior sacado | Mercado Norte — 66,67% |
+| Qtd. estoque ativo | 5 |
+| Soma estoque ativo | R$ 100.000,00 |
+| % vencido | 20,00% |
+| PDD total | R$ 15.000,00 |
+| Maior sacado | Hospital Central — 70,00% |
 
 **`estoque-parcial.csv`**
 
 | Indicador | Valor |
 |---|---|
-| Qtd. estoque ativo | 4 |
-| Soma estoque ativo | R$ 113.000,00 |
-| % vencido | 75,22% |
-| PDD total | R$ 50.000,00 |
-| Maior sacado | Mercado Norte — 61,95% |
-| Erros | 1 (linha 6 — NF vazia) |
+| Qtd. estoque ativo | 7 |
+| Soma estoque ativo | R$ 103.000,00 |
+| % vencido | 19,42% |
+| PDD total | R$ 15.000,00 |
+| Maior sacado | Hospital Central — 67,96% |
+| Erros | 2 (linha 9 — NF duplicada; linha 10 — valor inválido) |
 
----
+**`estoque-rejeitado.csv`**
+
+| Indicador | Valor |
+|---|---|
+| Erros | 3 (linha 3 — status inválido; linha 4 — valor inválido; linha 5 — vencimento inválido) |
+| Taxa de erro | 60,0% |
+| Resultado | HTTP 400 — snapshot anterior preservado |
 
 ## Arquitetura
 
