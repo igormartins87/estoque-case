@@ -67,12 +67,13 @@ export default function ImportarCsv({ aoImportar }: ImportarCsvProps) {
       <h2 className="font-semibold text-lg">Importação de Estoque</h2>
 
       <div className="flex items-center gap-3">
-        <input
+                <input
           type="file"
           accept=".csv"
           onChange={handleSelecionarArquivo}
-          className="text-sm"
+          className="text-sm text-gray-700 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:bg-gray-100 file:text-gray-700 file:text-sm file:font-medium hover:file:bg-gray-200 file:cursor-pointer"
         />
+
 
         <button
           onClick={handleImportar}
