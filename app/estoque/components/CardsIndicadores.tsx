@@ -1,16 +1,10 @@
 import type { EstoqueSnapshot } from "@/lib/estoque-types";
+import { formatarMoeda,formatarPercentual } from "@/lib/formatters";
 
 type CardsIndicadoresProps = {
   indicadores: EstoqueSnapshot["indicadores"];
 };
 
-function formatarMoeda(valor: number) {
-  return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
-
-function formatarPercentual(valor: number) {
-  return `${valor.toFixed(2)}%`;
-}
 
 export default function CardsIndicadores({ indicadores }: CardsIndicadoresProps) {
   return (

@@ -1,18 +1,12 @@
 import type { EstoqueSnapshot } from "@/lib/estoque-types";
 
+import { formatarMoeda, formatarData} from "@/lib/formatters";
+
 type TabelaEstoqueProps = {
   estoque: EstoqueSnapshot["estoque"];
   alertasConcentracao: EstoqueSnapshot["alertasConcentracao"];
 };
 
-function formatarMoeda(valor: number) {
-  return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
-
-function formatarData(data: string) {
-  const [ano, mes, dia] = data.split("-");
-  return `${dia}/${mes}/${ano}`;
-}
 
 export default function TabelaEstoque({ estoque, alertasConcentracao }: TabelaEstoqueProps) {
   const sacadosConcentrados = new Set(
