@@ -1,0 +1,12 @@
+export function formatarMoeda(valor: number): string {
+  return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+export function formatarPercentual(valor: number): string {
+  return `${valor.toFixed(2)}%`;
+}
+
+export function formatarData(data: string): string {
+  const [ano, mes, dia] = data.split("-");
+  return `${dia}/${mes}/${ano}`;
+}

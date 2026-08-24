@@ -1,12 +1,11 @@
 import type { AlertaConcentracao } from "@/lib/estoque-types";
+import { formatarMoeda} from "@/lib/formatters";
 
 type AlertasConcentracaoProps = {
   alertas: AlertaConcentracao[];
 };
 
-function formatarMoeda(valor: number) {
-  return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
+
 
 export default function AlertasConcentracao({ alertas }: AlertasConcentracaoProps) {
   if (alertas.length === 0) {
